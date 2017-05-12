@@ -40,21 +40,19 @@ void FileGroup::AddFileInGroup(FileClass* fc)
 }
 
 
-//Проверка принадлежности к группе по ключевым словам
-bool FileGroup::isOwnGroup(FileClass* fc)
+bool FileGroup::IsOwnGroup(FileClass* fc)
 {
         unsigned int comparedwordscount = 0;
-        for(unsigned int i = 0; i < fc->GetWordsMassive().size(); i++)
+        for(unsigned int i = 0; i < fc->GetWordsArray().size(); i++)
         {
                 for(unsigned int j = 0; j < _characteristicWords.size(); j++)
                 {
-                        if(_characteristicWords[j].AnsiPos(fc->GetWordsMassive()[i]) > 0)
+                        if(_characteristicWords[j].AnsiPos(fc->GetWordsArray()[i]) > 0)
                         {
                                 comparedwordscount++;
                         }
                 }
         }
-        //Если в файле есть ключевые слова группы, то он ей принадлежит
         if(comparedwordscount == _characteristicWords.size())
         {
                 return true;
@@ -76,7 +74,7 @@ String FileGroup::GetCharacteristicWordsInOneRow()
                         allwords = allwords + _characteristicWords[i];
                 }
         }
-        return allwords;
+        return Utf8ToAnsi(allwords);
 }
 
 FileGroup::~FileGroup()

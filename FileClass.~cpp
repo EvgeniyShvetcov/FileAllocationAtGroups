@@ -17,7 +17,7 @@ void FileClass::SetFileName(String filename)
         _filename = filename;
 }
 
-void FileClass::SetWordsMassive(vector<String>* words)
+void FileClass::SetWordsArray(vector<String>* words)
 {
         for(unsigned int i = 0; i < words->size(); i++)
         {
@@ -26,13 +26,13 @@ void FileClass::SetWordsMassive(vector<String>* words)
         words->clear();
         words = 0;
 }
-//Заполнение массива слов из файла
-void FileClass::FillWordsMassive(char* filepath)
+
+void FileClass::FillWordsArray(char* filepath)
 {
         FILE * file = NULL;
         char str[255] = {0};
         file = fopen(strcat(filepath, _filename.c_str()), "r+");
-        if(file == NULL) throw 1; //Не удалось открыть файл
+        if(file == NULL) throw 1;
         while(fgets(str, 255, file) != NULL)
         {
                 String infowords;
@@ -40,7 +40,6 @@ void FileClass::FillWordsMassive(char* filepath)
                 do
                 {
                         infowords += str[i];
-                        //Разбитие слов разделённые пробелами
                         if(str[i] == ' ')
                         {
                                 _words.push_back(infowords);
@@ -52,20 +51,18 @@ void FileClass::FillWordsMassive(char* filepath)
                         }
                         i++;
                 }
-                //До конца строки
                 while(str[i] != '\0');
         }
    fclose(file);
    delete[] str;
 }
 
-//Возвращает массив похожих слов между двумя файлами
 vector<String> FileClass::GetSimilarWords(FileClass fc)
 {
         vector<String> comparedWords;
         for(unsigned int i = 0; i < _words.size(); i++)
         {
-                for(unsigned int j = 0; j < fc.GetWordsMassive().size(); j++)
+                for(unsigned int j = 0; j < fc.GetWordsArray().size(); j++)
                 {
                         if(_words[i].AnsiPos(fc.GetWordsMassive()[j]) > 0)
                         {

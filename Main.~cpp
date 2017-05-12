@@ -36,10 +36,10 @@ int main(int argc, char* argv[])
     char directory_path[40] = { 0 }, files_path[40] = { 0 };
     unsigned int filecounter = 0, groupnumber = 0;
 
-    printf("Введите путь до директории: ");
+    printf("Enter directory path: ");
     fgets(directory_path, 40, stdin);
 
-    printf("Введите количество групп похожих файлов: ");
+    printf("Enter the number of groups of similar files: ");
     scanf("%d", &groupnumber);
     
     directory_path[strlen(directory_path) - 1] = '\0';
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
         FileNames->push_back(FindFileName.cFileName);
         FileClass fc;
         fc.SetFileName(FileNames->operator [](filecounter));
-        fc.FillWordsMassive(files_path);
+        fc.FillWordsArray(files_path);
         FilesArray->push_back(fc);
         fill(files_path + (strlen(files_path) - fc.GetFileName().Length()), files_path + 40, 0);
         filecounter++;
@@ -62,10 +62,10 @@ int main(int argc, char* argv[])
     for(unsigned int i = 0; i < FilesArray->size(); i++)
     {
         printf("%s\n", FilesArray->operator[](i).GetFileName());
-        for(unsigned int j = 0; j < FilesArray->operator[](i).GetWordsMassive().size(); j++)
+        for(unsigned int j = 0; j < FilesArray->operator[](i).GetWordsArray().size(); j++)
         {
                 printf("%s", "-");
-                printf("%s\n", FilesArray->operator [](i).GetWordsMassive()[j]);
+                printf("%s\n", FilesArray->operator [](i).GetWordsArray()[j]);
         }
     }
     FileAllocationAtGroups(FilesArray, FileGroups, groupnumber);
@@ -73,13 +73,12 @@ int main(int argc, char* argv[])
     {
         ShowFilesInGroup(FileGroups->operator[](k));
     }
-    printf("%s", "Нажмите любую клавишу, чтобы закрыть программу...");
+    printf("%s", "Press any key to complete the programm...");
     getch();
 }
 //---------------------------------------------------------------------------
 void FileAllocationAtGroups(vector<FileClass>* files, vector<FileGroup>* groups, unsigned int grnumber)
 {
-        //Вспомогательная переменная для избегания повторов при сравнении файлов
         unsigned int shift = 0;
         for(unsigned int i = 0; i < files->size(); i++)
         {
@@ -96,7 +95,7 @@ void FileAllocationAtGroups(vector<FileClass>* files, vector<FileGroup>* groups,
                                 fg.AddCharacteristicWords(&(files->operator[](i).GetSimilarWords(files->operator[](j))));
                                 if(!fg.GetCharacteristicWords().empty())
                                 {
-                                        fg.SetGroupName("Группа" + IntToStr(groups->size() + 1));
+                                        fg.SetGroupName("Group" + IntToStr(groups->size() + 1));
                                         groups->push_back(fg);
                                 }
                         }
@@ -112,7 +111,7 @@ void FindOtherFilesInGroup(vector<FileClass>* files, vector<FileGroup>* groups)
         {
                 for(unsigned int j = 0; j < files->size(); j++)
                 {
-                        if(groups->operator[](i).isOwnGroup(&(files->operator[](j))))
+                        if(groups->operator[](i).IsOwnGroup(&(files->operator[](j))))
                         {
                                 groups->operator[](i).AddFileInGroup(&files->operator[](j));
                         }
@@ -122,7 +121,7 @@ void FindOtherFilesInGroup(vector<FileClass>* files, vector<FileGroup>* groups)
 
 void ShowFilesInGroup(FileGroup fg)
 {
-        printf("%s\n", fg.GetGroupName() + "-слова группы: " + fg.GetCharacteristicWordsInOneRow());
+        printf("%s\n", fg.GetGroupName() + "-group words: " + fg.GetCharacteristicWordsInOneRow());
         for(unsigned int i = 0; i < fg.GetFilesInGroup().size(); i++)
         {
                 printf("%s", "-");

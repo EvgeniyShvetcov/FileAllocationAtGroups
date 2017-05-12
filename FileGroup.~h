@@ -7,7 +7,6 @@ class FileGroup
 {
 private:
         String _groupname;
-        //Характерные для группы слова
         vector<String> _characteristicWords;
         vector<FileClass> _FilesInGroup;
 public:
@@ -23,7 +22,7 @@ public:
         vector<FileClass> GetFilesInGroup(){return _FilesInGroup;}
         String GetCharacteristicWordsInOneRow();
         String GetGroupName(){return _groupname;}
-        bool isOwnGroup(FileClass* fc);
+        bool IsOwnGroup(FileClass* fc);
 
 
         ~FileGroup();

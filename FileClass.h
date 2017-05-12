@@ -12,11 +12,11 @@ public:
         FileClass();
 
         void SetFileName(String filename);
-        void SetWordsMassive(vector<String>* words);
-        void FillWordsMassive(char* filepath);
+        void SetWordsArray(vector<String>* words);
+        void FillWordsArray(char* filepath);
 
         String GetFileName(){return _filename;}
-        vector<String> GetWordsMassive(){return _words;}
+        vector<String> GetWordsArray(){return _words;}
         vector<String> GetSimilarWords(FileClass fc);
 
         ~FileClass();
