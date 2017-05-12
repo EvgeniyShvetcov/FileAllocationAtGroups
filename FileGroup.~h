@@ -21,6 +21,7 @@ public:
 
         vector<String> GetCharacteristicWords(){return _characteristicWords;}
         vector<FileClass> GetFilesInGroup(){return _FilesInGroup;}
+        String GetCharacteristicWordsInOneRow();
         String GetGroupName(){return _groupname;}
         bool isOwnGroup(FileClass* fc);
 

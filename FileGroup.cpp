@@ -62,6 +62,23 @@ bool FileGroup::isOwnGroup(FileClass* fc)
         return false;
 }
 
+String FileGroup::GetCharacteristicWordsInOneRow()
+{
+        String allwords;
+        for(unsigned int i = 0; i < _characteristicWords.size(); i++)
+        {
+                if(i != _characteristicWords.size() - 1)
+                {
+                        allwords = allwords + _characteristicWords[i] + ",";
+                }
+                else
+                {
+                        allwords = allwords + _characteristicWords[i];
+                }
+        }
+        return allwords;
+}
+
 FileGroup::~FileGroup()
 {
         if((!_characteristicWords.empty()) && (!_FilesInGroup.empty()))

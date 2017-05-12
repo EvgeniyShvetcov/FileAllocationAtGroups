@@ -3,7 +3,7 @@
 
 #pragma hdrstop
 
-#include "Unit1.cpp"
+#include "Main.cpp"
 #include "FileGroup.h"
 #include "FileClass.h"
 //---------------------------------------------------------------------------
@@ -60,6 +60,23 @@ bool FileGroup::isOwnGroup(FileClass* fc)
                 return true;
         }
         return false;
+}
+
+String FileGroup::GetCharacteristicWords()
+{
+        String allwords;
+        for(unsigned int i = 0; i < _characteristicWords.size(); i++)
+        {
+                if(i != _characteristicWords.size() - 1)
+                {
+                        allwords = allwords + _characteristicWords[i] + ",";
+                }
+                else
+                {
+                        allwords = allwords + _characteristicWords[i];
+                }
+        }
+        return allwords;
 }
 
 FileGroup::~FileGroup()
